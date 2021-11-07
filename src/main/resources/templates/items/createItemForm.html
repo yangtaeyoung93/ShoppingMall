@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+a {
+  text-decoration: none;
+  color: #222;
+}
+.gnb{
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.gnb a{
+    /*border: 1px solid red;*/
+    width: 80px;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.gnb a:before,
+.gnb a:after{
+    position: absolute;
+    content: attr(data-link);
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+
+}
+.gnb a:before{
+    top: 0;
+    left: 0;
+
+}
+.gnb a:after{
+    top: 100%;
+    left: 0;
+    color: #0069d9;
+}
+.gnb a:hover:before{
+    top: -100%;
+}
+.gnb a:hover:after{
+    top: 0;
+}
+</style>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="gnb">
+        <a th:href="@{/items/add/book}" data-link="도서"></a>
+        <a th:href="@{/items/add/music}" data-link="음악"></a>
+        <a th:href="@{/items/add/movie}" data-link="영화"></a>
+    </div>
+    <form th:action="@{/items/add}" th:object="${form}" method="post">
+        <div class="form-group">
+            <label th:for="name">상품명</label>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="price">가격</label>
+            <input type="number" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="stockQuantity">수량</label>
+            <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="수량을 입력하세요">
+        </div>
+        <div class="form-group" th:if="${category} == 'book'">
+            <input type="hidden" value="B" id="dtype" name="dtype"/>
+            <label th:for="author" >저자</label>
+            <input type="text" th:field="*{author}" class="form-control" placeholder="저자를 입력하세요">
+        </div>
+        <div class="form-group" th:if="${category} == 'music'">
+            <input type="hidden" value="A" id="dtype" name="dtype"/>
+            <label th:for="artist" >작가</label>
+            <input type="text" th:field="*{artist}" class="form-control" placeholder="작가를 입력하세요">
+        </div>
+        <div class="form-group" th:if="${category} == 'movie'">
+            <input type="hidden" value="M" id="dtype" name="dtype"/>
+            <label th:for="director" >감독</label>
+            <input type="text" th:field="*{director}" class="form-control" placeholder="감독을 입력하세요">
+        </div>
+        <div class="form-group"th:if="${category} == 'book'">
+            <label th:for="isbn">ISBN</label>
+            <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력하세요">
+        </div>
+        <div class="form-group"th:if="${category} == 'music'">
+            <label th:for="etc">ETC</label>
+            <input type="text" th:field="*{etc}" class="form-control" placeholder="ETC을 입력하세요">
+        </div>
+        <div class="form-group"th:if="${category} == 'movie'">
+            <label th:for="actor">ACTOR</label>
+            <input type="text" th:field="*{actor}" class="form-control" placeholder="배우를 입력하세요">
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+
+
+</body>
+</html>
