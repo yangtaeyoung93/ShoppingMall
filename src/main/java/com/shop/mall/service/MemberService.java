@@ -28,9 +28,14 @@ public class MemberService {
         return member.getId();
     }
 
+    @Transactional
+    public Long update(Member member) {
+        memberRepository.save(member);
+        return member.getId();
+    }
 
     private void validateDuplicateMember(Member member) {
-        Optional<Member> members = memberRepository.findByLoginId(member.getLoginId());
+        List<Member> members = memberRepository.findById(member.getLoginId());
         if (!members.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
