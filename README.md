@@ -51,9 +51,13 @@
  
 
 # 도메인 모델 및 테이블 설계
+![엔티티 모델](https://user-images.githubusercontent.com/52926582/141036469-0e43a562-9a71-4258-931c-84b0f143071f.PNG)
 
+[도메인모델]
 
- 
+![테이블 설계](https://user-images.githubusercontent.com/52926582/141039618-fffb75a4-57e7-4217-9a9c-6a4a7e91c050.PNG)
+[테이블모델]
+
  
  
  
