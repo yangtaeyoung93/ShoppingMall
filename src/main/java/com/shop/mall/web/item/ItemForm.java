@@ -3,7 +3,7 @@ package com.shop.mall.web.item;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public  class ItemForm {
 
     private Long id;
@@ -23,4 +23,11 @@ public  class ItemForm {
         this.stockQuantity = stockQuantity;
         this.dtype = dtype;
     }
+
+    private String artist;
+    private String etc;
+    private String author;
+    private String isbn;
+    private String director;
+    private String actor;
 }

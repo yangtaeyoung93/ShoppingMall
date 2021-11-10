@@ -36,15 +36,15 @@ public class itemController {
     }
 
      @PostMapping("/add")
-    public String create(ItemDTO itemDTO){
-        String dtype = itemDTO.getDtype();
+    public String create(ItemForm itemForm){
+        String dtype = itemForm.getDtype();
          Item item;
         if(dtype.equals("B")){
-            item = new Book(itemDTO.getName(),itemDTO.getPrice(), itemDTO.getStockQuantity(), itemDTO.getAuthor(),itemDTO.getIsbn());
+            item = new Book(itemForm.getName(),itemForm.getPrice(), itemForm.getStockQuantity(), itemForm.getAuthor(),itemForm.getIsbn());
         }else if(dtype.equals("A")){
-            item = new Album(itemDTO.getName(),itemDTO.getPrice(), itemDTO.getStockQuantity(), itemDTO.getArtist(),itemDTO.getEtc());
+            item = new Album(itemForm.getName(),itemForm.getPrice(), itemForm.getStockQuantity(), itemForm.getArtist(),itemForm.getEtc());
         }else{
-            item = new Movie(itemDTO.getName(), itemDTO.getPrice(), itemDTO.getStockQuantity(), itemDTO.getDirector(), itemDTO.getActor());
+            item = new Movie(itemForm.getName(), itemForm.getPrice(), itemForm.getStockQuantity(), itemForm.getDirector(), itemForm.getActor());
         }
 
          itemService.saveItem(item);
@@ -61,6 +61,7 @@ public class itemController {
 
     @GetMapping("/{itemId}/edit/{type}")
     public String updateItemForm(@PathVariable("itemId") Long itemId, @PathVariable("type") String type, Model model) {
+
        if(type.equalsIgnoreCase("book")){
             Book item = (Book) itemService.findOne(itemId);
             model.addAttribute("form",new BookForm(item.getId(),item.getName(),item.getPrice(),item.getStockQuantity(),item.getDtype(),item.getAuthor(),item.getIsbn()));
@@ -78,9 +79,9 @@ public class itemController {
 
 
     @PostMapping("/{itemId}/edit/{type}")
-    public String editItem(@PathVariable("itemId") Long itemId,@ModelAttribute(name = "form") ItemDTO itemDTO) {
-        log.info("name ={},price={},stockquantity={},item={}",itemDTO.getName(), itemDTO.getPrice(),itemDTO.getStockQuantity(),itemDTO.getArtist());
-            itemService.updateItem(itemId,itemDTO);
+    public String editItem(@PathVariable("itemId") Long itemId,@ModelAttribute(name = "form") ItemForm itemForm) {
+        log.info("name ={},price={},stockquantity={},item={}",itemForm.getName(), itemForm.getPrice(),itemForm.getStockQuantity(),itemForm.getArtist());
+            itemService.updateItem(itemId,itemForm);
         return "redirect:/items";
     }
 

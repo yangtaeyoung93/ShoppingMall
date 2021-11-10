@@ -5,7 +5,7 @@ import com.shop.mall.domain.item.Book;
 import com.shop.mall.domain.item.Item;
 import com.shop.mall.domain.item.Movie;
 import com.shop.mall.repository.ItemRepository;
-import com.shop.mall.web.item.ItemDTO;
+import com.shop.mall.web.item.ItemForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,35 +35,35 @@ public class ItemService {
     }
 
     @Transactional
-    public void updateItem(Long itemId, ItemDTO itemDTO) {
+    public void updateItem(Long itemId, ItemForm itemForm) {
         Item item = itemRepository.findOne(itemId);
 
-        String dtype = itemDTO.getDtype();
+        String dtype = itemForm.getDtype();
 
 
         if(dtype.equalsIgnoreCase("book")){
             item = (Book) item;
-            ((Book) item).setAuthor(itemDTO.getAuthor());
-            ((Book) item).setIsbn(itemDTO.getIsbn());
-            item.setName(itemDTO.getName());
-            item.setPrice(itemDTO.getPrice());
-            item.setStockQuantity(itemDTO.getStockQuantity());
+            ((Book) item).setAuthor(itemForm.getAuthor());
+            ((Book) item).setIsbn(itemForm.getIsbn());
+            item.setName(itemForm.getName());
+            item.setPrice(itemForm.getPrice());
+            item.setStockQuantity(itemForm.getStockQuantity());
         } else if (dtype.equalsIgnoreCase("music")) {
            item = (Album) item;
-           ((Album) item).setArtist(itemDTO.getArtist());
-           ((Album) item).setEtc(itemDTO.getEtc());
-            item.setName(itemDTO.getName());
-            item.setPrice(itemDTO.getPrice());
-            item.setStockQuantity(itemDTO.getStockQuantity());
+           ((Album) item).setArtist(itemForm.getArtist());
+           ((Album) item).setEtc(itemForm.getEtc());
+            item.setName(itemForm.getName());
+            item.setPrice(itemForm.getPrice());
+            item.setStockQuantity(itemForm.getStockQuantity());
         }else{
             item = (Movie)item;
-            ((Movie) item).setDirector(itemDTO.getDirector());
-            ((Movie) item).setActor(itemDTO.getActor());
-            item.setName(itemDTO.getName());
-            item.setPrice(itemDTO.getPrice());
-            item.setStockQuantity(itemDTO.getStockQuantity());
+            ((Movie) item).setDirector(itemForm.getDirector());
+            ((Movie) item).setActor(itemForm.getActor());
+            item.setName(itemForm.getName());
+            item.setPrice(itemForm.getPrice());
+            item.setStockQuantity(itemForm.getStockQuantity());
         }
-        log.info("name ={}, price={}, StockQuantity={}" , itemDTO.getName(),item.getPrice(),item.getStockQuantity());
+        log.info("name ={}, price={}, StockQuantity={}" , item.getName(),item.getPrice(),item.getStockQuantity());
 
     }
 }
