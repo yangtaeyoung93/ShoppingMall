@@ -28,6 +28,7 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -79,6 +80,7 @@ public class Order {
         }
 
         this.setStatus(OrderStatus.CANCLE);
+        delivery.setStatus(DeliveryStatus.CANCEL);
 
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();

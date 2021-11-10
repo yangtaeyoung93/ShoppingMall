@@ -1,6 +1,9 @@
 package com.shop.mall.repository;
 
+import com.shop.mall.domain.item.Album;
+import com.shop.mall.domain.item.Book;
 import com.shop.mall.domain.item.Item;
+import com.shop.mall.domain.item.Movie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,7 @@ public class ItemRepository {
     public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
+
 
     public List<Item> findAll(){
         return em.createQuery("select i from Item i", Item.class)

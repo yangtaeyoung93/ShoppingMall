@@ -56,7 +56,7 @@ a {
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div class="gnb">
         <a th:href="@{/items/add/book}" data-link="도서"></a>
-        <a th:href="@{/items/add/music}" data-link="음악"></a>
+        <a th:href="@{/items/add/music}" data-link="음반"></a>
         <a th:href="@{/items/add/movie}" data-link="영화"></a>
     </div>
     <form th:action="@{/items/add}" th:object="${form}" method="post">
@@ -72,30 +72,30 @@ a {
             <label th:for="stockQuantity">수량</label>
             <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="수량을 입력하세요">
         </div>
-        <div class="form-group" th:if="${category} == 'book'">
+        <div class="form-group" th:if="${type} == 'book'">
             <input type="hidden" value="B" id="dtype" name="dtype"/>
             <label th:for="author" >저자</label>
             <input type="text" th:field="*{author}" class="form-control" placeholder="저자를 입력하세요">
         </div>
-        <div class="form-group" th:if="${category} == 'music'">
+        <div class="form-group" th:if="${type} == 'music'">
             <input type="hidden" value="A" id="dtype" name="dtype"/>
             <label th:for="artist" >작가</label>
             <input type="text" th:field="*{artist}" class="form-control" placeholder="작가를 입력하세요">
         </div>
-        <div class="form-group" th:if="${category} == 'movie'">
+        <div class="form-group" th:if="${type} == 'movie'">
             <input type="hidden" value="M" id="dtype" name="dtype"/>
             <label th:for="director" >감독</label>
             <input type="text" th:field="*{director}" class="form-control" placeholder="감독을 입력하세요">
         </div>
-        <div class="form-group"th:if="${category} == 'book'">
+        <div class="form-group"th:if="${type} == 'book'">
             <label th:for="isbn">ISBN</label>
             <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력하세요">
         </div>
-        <div class="form-group"th:if="${category} == 'music'">
+        <div class="form-group"th:if="${type} == 'music'">
             <label th:for="etc">ETC</label>
             <input type="text" th:field="*{etc}" class="form-control" placeholder="ETC을 입력하세요">
         </div>
-        <div class="form-group"th:if="${category} == 'movie'">
+        <div class="form-group"th:if="${type} == 'movie'">
             <label th:for="actor">ACTOR</label>
             <input type="text" th:field="*{actor}" class="form-control" placeholder="배우를 입력하세요">
         </div>

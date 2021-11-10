@@ -1,16 +1,14 @@
 package com.shop.mall.domain.item;
 
-import com.shop.mall.domain.CategoryItem;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import java.util.List;
 
 @Entity
 @Getter @Setter
-@DiscriminatorValue("B")
+@DiscriminatorValue("Book")
 public class Book  extends Item{
 
     private String author;
@@ -20,5 +18,8 @@ public class Book  extends Item{
         super(name, price, stockQuantity);
         this.author = author;
         this.isbn = isbn;
+    }
+
+    public Book() {
     }
 }

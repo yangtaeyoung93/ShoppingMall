@@ -8,22 +8,35 @@ import javax.persistence.*;
 
 import java.util.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Getter @Setter
 public class Category {
 
     @Id @GeneratedValue
-    @Column(name = "CATEGORY_ID")
+    @Column(name = "category_id")
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<CategoryItem> categoryItems = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "category_item",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private List<Item> items = new ArrayList<>();
 
-    public void addCategoryItem(CategoryItem categoryItem) {
-        categoryItems.add(categoryItem);
-        categoryItem.setCategory(this);
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "parent_id")
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent")
+    private List<Category> child = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
     }
 
 

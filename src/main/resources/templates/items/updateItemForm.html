@@ -6,7 +6,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
-    <form th:object="${form}" method="post">
+    <form th:object="${form}" method="post" th:action>
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
 
@@ -22,14 +22,31 @@
             <label th:for="stockQuantity">수량</label>
             <input type="number" th:field="*{stockQuantity}" class="form-control" placeholder="수량을 입력하세요" />
         </div>
-        <div class="form-group">
-            <label th:for="author">저자</label>
-            <input type="text" th:field="*{author}" class="form-control"  placeholder="저자를 입력하세요" />
+        <div class="form-group" th:if="*{dtype} == 'Book'">
+            <label th:for="author" >저자</label>
+            <input type="text" th:field="*{author}" class="form-control" placeholder="저자를 입력하세요">
         </div>
-        <div class="form-group">
+        <div class="form-group" th:if="*{dtype} == 'Music'">
+            <label th:for="artist" >작가</label>
+            <input type="text" th:field="*{artist}" class="form-control" placeholder="작가를 입력하세요">
+        </div>
+        <div class="form-group" th:if="*{dtype} == 'Movie'">
+            <label th:for="director" >감독</label>
+            <input type="text" th:field="*{director}" class="form-control" placeholder="감독을 입력하세요">
+        </div>
+        <div class="form-group"th:if="*{dtype} == 'Book'">
             <label th:for="isbn">ISBN</label>
-            <input type="text" th:field="*{isbn}" class="form-control"  placeholder="ISBN을 입력하세요" />
+            <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력하세요">
         </div>
+        <div class="form-group"th:if="*{dtype} == 'Music'">
+            <label th:for="etc">ETC</label>
+            <input type="text" th:field="*{etc}" class="form-control" placeholder="ETC을 입력하세요">
+        </div>
+        <div class="form-group"th:if="*{dtype} == 'Movie'">
+            <label th:for="actor">ACTOR</label>
+            <input type="text" th:field="*{actor}" class="form-control" placeholder="배우를 입력하세요">
+        </div>
+        <input type="hidden"th:field="*{dtype}"/>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
