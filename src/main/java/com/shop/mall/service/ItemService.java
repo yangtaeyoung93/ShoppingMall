@@ -36,33 +36,28 @@ public class ItemService {
 
     @Transactional
     public void updateItem(Long itemId, ItemForm itemForm) {
+
         Item item = itemRepository.findOne(itemId);
-
         String dtype = itemForm.getDtype();
-
 
         if(dtype.equalsIgnoreCase("book")){
             item = (Book) item;
             ((Book) item).setAuthor(itemForm.getAuthor());
             ((Book) item).setIsbn(itemForm.getIsbn());
-            item.setName(itemForm.getName());
-            item.setPrice(itemForm.getPrice());
-            item.setStockQuantity(itemForm.getStockQuantity());
         } else if (dtype.equalsIgnoreCase("music")) {
            item = (Album) item;
            ((Album) item).setArtist(itemForm.getArtist());
            ((Album) item).setEtc(itemForm.getEtc());
-            item.setName(itemForm.getName());
-            item.setPrice(itemForm.getPrice());
-            item.setStockQuantity(itemForm.getStockQuantity());
         }else{
             item = (Movie)item;
             ((Movie) item).setDirector(itemForm.getDirector());
             ((Movie) item).setActor(itemForm.getActor());
-            item.setName(itemForm.getName());
-            item.setPrice(itemForm.getPrice());
-            item.setStockQuantity(itemForm.getStockQuantity());
         }
+
+        item.setName(itemForm.getName());
+        item.setPrice(itemForm.getPrice());
+        item.setStockQuantity(itemForm.getStockQuantity());
+
         log.info("name ={}, price={}, StockQuantity={}" , item.getName(),item.getPrice(),item.getStockQuantity());
 
     }
