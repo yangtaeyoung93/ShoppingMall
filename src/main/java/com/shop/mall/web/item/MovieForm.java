@@ -3,10 +3,14 @@ package com.shop.mall.web.item;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Getter @Setter
 public class MovieForm extends ItemForm{
 
+    @NotEmpty
     private String director;
+    @NotEmpty
     private String actor;
 
     public MovieForm() {

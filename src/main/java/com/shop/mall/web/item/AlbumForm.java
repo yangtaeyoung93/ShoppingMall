@@ -3,10 +3,14 @@ package com.shop.mall.web.item;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+
 @Setter @Getter
 public class AlbumForm  extends ItemForm{
 
+    @NotEmpty
     private String artist;
+    @NotEmpty
     private String etc;
 
     public AlbumForm() {
