@@ -41,15 +41,12 @@ public class ItemService {
         String dtype = itemForm.getDtype();
 
         if(dtype.equalsIgnoreCase("book")){
-            item = (Book) item;
             ((Book) item).setAuthor(itemForm.getAuthor());
             ((Book) item).setIsbn(itemForm.getIsbn());
         } else if (dtype.equalsIgnoreCase("music")) {
-           item = (Album) item;
            ((Album) item).setArtist(itemForm.getArtist());
            ((Album) item).setEtc(itemForm.getEtc());
         }else{
-            item = (Movie)item;
             ((Movie) item).setDirector(itemForm.getDirector());
             ((Movie) item).setActor(itemForm.getActor());
         }
