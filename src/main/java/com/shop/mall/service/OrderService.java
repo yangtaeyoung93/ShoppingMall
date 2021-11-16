@@ -66,4 +66,8 @@ public class OrderService {
         return orderRepository.findBtCriteria(orderSearch);
     }
 
+    public List<Order> findAllWithItem(OrderSearch orderSearch){
+        return orderRepository.findAllWithItem(orderSearch);
+    }
+
 }
