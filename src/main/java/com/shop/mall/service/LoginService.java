@@ -5,6 +5,7 @@ import com.shop.mall.domain.member.MemberForm;
 import com.shop.mall.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      *
@@ -21,8 +23,8 @@ public class LoginService {
      * @return null이면 로그인 실패
      */
     public Member login(String loginId, String password){
-        log.info("loginId ={}, password={}",loginId,password);
+
        return  memberRepository.findById(loginId)
-               .stream().filter(m -> m.getPassword().equals(password)).findFirst().orElse(null);
+               .stream().filter(m -> passwordEncoder.matches(password, m.getPassword()) ).findFirst().orElse(null);
     }
 }

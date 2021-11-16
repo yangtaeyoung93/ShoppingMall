@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired PasswordEncoder passwordEncoder;
 
     @Test
     public void 회원가입() throws Exception{
@@ -51,5 +53,16 @@ public class MemberServiceTest {
         fail("에외가 발생해야 한다");
     }
 
+
+    @Test
+    public void 비번암호화테스트(){
+        //given
+        String rawpwd = "xptmxm23";
+        //when
+        String encodedpwd = passwordEncoder.encode(rawpwd);
+        //then
+        assertNotEquals(rawpwd,encodedpwd);
+        assertTrue(passwordEncoder.matches(rawpwd,encodedpwd));
+    }
 
 }

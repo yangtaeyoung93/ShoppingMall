@@ -7,6 +7,7 @@ import com.shop.mall.service.MemberService;
 import com.shop.mall.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ import java.util.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/add")
     public String addForm(Model model)
@@ -39,8 +41,9 @@ public class MemberController {
         }
 
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        String encodedPassword = passwordEncoder.encode(form.getPassword());
 
-        Member member = new Member(form.getLoginId(),form.getName(),form.getPassword(),address);
+        Member member = new Member(form.getLoginId(),form.getName(),encodedPassword,address);
         memberService.join(member);
 
         return "redirect:/";
@@ -80,7 +83,9 @@ public class MemberController {
 
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
-        Member member = new Member(memberId,form.getLoginId(),form.getName(),form.getPassword(),address);
+        String encodedPassword = passwordEncoder.encode(form.getPassword());
+
+        Member member = new Member(memberId,form.getLoginId(),form.getName(),encodedPassword,address);
 
         memberService.update(member);
 

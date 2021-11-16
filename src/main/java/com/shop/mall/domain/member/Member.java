@@ -22,13 +22,10 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @NotEmpty
     private String loginId;
 
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     private String password;
 
     @Embedded

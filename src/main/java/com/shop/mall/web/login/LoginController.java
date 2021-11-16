@@ -6,6 +6,7 @@ import com.shop.mall.service.LoginService;
 import com.shop.mall.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,6 @@ public class LoginController {
 
     private final LoginService loginService;
 
-
     @GetMapping("/login")
     public String loginForm(@ModelAttribute LoginForm loginForm){
         return "login/loginForm";
@@ -36,10 +36,9 @@ public class LoginController {
         }
 
         Member loginMember = loginService.login(loginForm.getLoginId(),loginForm.getPassword());
-        log.info("login? {}", loginMember);
 
         if (loginMember == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 일치하지 않습니다.");
             return "login/loginForm";
         }
 
